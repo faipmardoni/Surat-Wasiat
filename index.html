@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login Wasiat</title>
+  <link rel="shortcut icon" href="https://ecs.tokopedia.com/img/favicon.ico?v=20140313">
+  <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <div id="requestToken" class="row">
+      <input type="text" class="form-control" id="name" v-model="name">
+      <input type="email" class="form-control" id="email" v-model="email">
+      <button class="btn btn-default" @click="getToken">Submit</button>
+    </div>
+    <div class="row">
+      <ul>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="lib/js/main.js"></script>
+</body>
+
+</html>

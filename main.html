@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Surat Wasiat</title>
+  <link rel="shortcut icon" href="https://ecs.tokopedia.com/img/favicon.ico?v=20140313">
+  <link rel="stylesheet" href="https://meyerweb.com/eric/tools/css/reset/reset.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="lib/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div class="container" id="app2">
+    <div id="showImage" class="row">
+      <h1>List Image</h1>
+      <ul>
+        <li v-for="image in images">
+          <div class="">{{image.id}}</div>
+          <img :src="image.url" alt="" style="width: 300px;">
+          <p>{{image.user.name}}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <h2>UPLOAD IMAGE</h2>
+        <div class="large-12 medium-12 small-12 cell">
+          <label>File
+            <input type="file" ref="file" v-on:change="handleFileUpload()" />
+          </label>
+          <button v-on:click="submitFile()">Submit</button>
+        </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    let token = localStorage.getItem('token')
+    console.log('token :', token);
+    axios.get('http://35.198.212.156/api/image', {
+      headers: {
+        'authorization': token
+      }
+    })
+      .then(response => {
+        let images = response.data.images
+        var app2 = new Vue({
+          el: '#app2',
+          data: {
+            images,
+            file: '',
+          },
+          methods: {
+            submitFile() {
+              let formData = new FormData();
+              formData.append('photo', this.file);
+              axios.post('http://35.198.212.156/api/image/',
+                formData,
+                {
+                  headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'authorization': token,
+                  }
+                }
+              ).then(function () {
+                console.log('SUCCESS!!');
+                alert('success')
+                window.location = 'http://127.0.0.1:8080/main.html'
+              })
+                .catch(function (error) {
+                  console.log('error :', error);
+                  console.log('FAILURE!!');
+                  alert('failed')
+                });
+            },
+
+            /*
+              Handles a change on the file upload
+            */
+            handleFileUpload() {
+              this.file = this.$refs.file.files[0];
+            }
+          }
+        })
+      })
+      .catch(error => {
+        console.log('error :', error);
+      })
+  </script>
+  <!-- <script src="lib/js/showImage.js"></script> -->
+</body>
+
+</html>
