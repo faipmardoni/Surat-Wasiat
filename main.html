@@ -18,10 +18,10 @@
   <div class="container" id="app2">
     <div id="showImage" class="row">
       <h1>List Image</h1>
-      <ul>
-        <li v-for="image in images">
+      <ul class="list-group">
+        <li v-for="image in images" class="list-group-item">
           <div class="">{{image.id}}</div>
-          <img :src="image.url" alt="" style="width: 300px;">
+          <img :src="image.url" alt="" style="width: 300px;" class="img-thumbnail">
           <p>{{image.user.name}}</p>
         </li>
       </ul>
